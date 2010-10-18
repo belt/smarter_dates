@@ -1,0 +1,38 @@
+= SmarterDates -- Natural languange date parsing for all date/datetime attributes
+
+machina to automatically parse (with the chronic gem) date/datetime attributes upon assignment
+
+
+== Example
+
+  require File.join(File.dirname(__FILE__),'lib','smarter_dates')
+
+  class MyObject
+    attr_accessor :birth_d
+
+    include SmarterDates
+  end
+
+  obj = MyObject.new
+  obj.birth_d = '7 days ago'
+
+  puts obj.birth_d
+  # => Thu Apr 22 12:00:00 -0500 1976
+
+== Use case
+
+Humans want to think of date and datetime attributes in a natural manner.
+Standard ruby Date and DateTime objects do not support this well.
+
+== Installation
+
+ % gem install smarter_dates
+
+== License
+
+Copyright (c) 2010 [Paul Belt], released under the MIT license
+
+== Support
+
+http://github.com/belt/smarter_dates
+
