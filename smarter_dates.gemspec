@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Paul Belt"]
-  s.date = %q{2010-10-18}
+  s.date = %q{2010-10-20}
   s.description = %q{Humans want to think of date and datetime attributes in a natural manner.
 Standard ruby Date and DateTime objects do not support this well.}
   s.email = %q{Paul Belt}
