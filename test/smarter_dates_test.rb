@@ -1,6 +1,10 @@
-require 'rubygems'
 require 'test/unit'
-require File.join(File.dirname(__FILE__),'..','lib','smarter_dates')
+
+if $LOAD_PATH.include?(File.expand_path(File.join(File.dirname(__FILE__),'..','lib')))
+  require 'smarter_dates'
+else
+  raise RuntimeError, "Try ruby -Ilib test/#{File.basename(__FILE__)}"
+end
 
 class Model
   attr_accessor :name
