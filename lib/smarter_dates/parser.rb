@@ -44,7 +44,7 @@ def self.included( klass ) # :nodoc:
       rescue
         dt = val
       end
-      if defined?(Rails)
+      if defined?(Rails) && dt
         if k.match(/_(?:on|d)$/)
           self[k] = dt.to_date
         else

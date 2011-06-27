@@ -1,4 +1,4 @@
 module SmarterDates
-  VERSION = '0.2.7.11'
+  VERSION = '0.2.7.12'
 end
 

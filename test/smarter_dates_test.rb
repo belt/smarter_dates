@@ -49,6 +49,18 @@ class SmarterDatesTest < Test::Unit::TestCase
     assert_equal yesterday.year, @model.updated_at.year
     assert_equal yesterday.month, @model.updated_at.mon
     assert_equal yesterday.day, @model.updated_at.mday
+    assert_equal yesterday.day, @model.updated_at.mday
+  end
+
+  def test_parsing_failures
+    @model.birth_d = "32 April 1976"
+    assert_equal nil, @model.birth_d
+
+    # TODO: fix this in chronic
+    if false
+    @model.birth_d = "30 Feb 1976"
+    assert_equal nil, @model.birth_d
+    end
   end
 end
 
