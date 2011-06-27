@@ -45,7 +45,11 @@ def self.included( klass ) # :nodoc:
         dt = val
       end
       if defined?(Rails)
-        self[k] = dt
+        if k.match(/_(?:on|d)$/)
+          self[k] = dt.to_date
+        else
+          self[k] = dt.to_datetime
+        end
       else
         instance_variable_set(:"@#{k}",dt)
       end
