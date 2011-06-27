@@ -44,11 +44,13 @@ def self.included( klass ) # :nodoc:
       rescue
         dt = val
       end
-      if defined?(Rails) && dt
-        if k.match(/_(?:on|d)$/)
+      if defined?(Rails)
+        if dt && k.match(/_(?:on|d)$/)
           self[k] = dt.to_date
-        else
+        elsif dt
           self[k] = dt.to_datetime
+        else
+          self[k] = dt
         end
       else
         instance_variable_set(:"@#{k}",dt)

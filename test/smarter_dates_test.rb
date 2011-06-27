@@ -56,6 +56,9 @@ class SmarterDatesTest < Test::Unit::TestCase
     @model.birth_d = "32 April 1976"
     assert_equal nil, @model.birth_d
 
+    @model.birth_d = nil
+    assert_equal nil, @model.birth_d
+
     # TODO: fix this in chronic
     if false
     @model.birth_d = "30 Feb 1976"
