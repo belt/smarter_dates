@@ -38,7 +38,7 @@ def self.included( klass ) # :nodoc:
       begin
         dt = Chronic.parse(val.to_s)
       rescue
-        dt = DateTime.parse(val)
+        dt = DateTime.parse(val.to_s)
       rescue
         dt = Date.parse(val)
       rescue
