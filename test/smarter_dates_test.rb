@@ -1,6 +1,6 @@
 require 'test/unit'
 
-if $LOAD_PATH.include?(File.expand_path(File.join(File.dirname(__FILE__),'..','lib')))
+if $LOAD_PATH.include?(File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib')))
   require 'smarter_dates'
 else
   raise RuntimeError, "Try ruby -Ilib test/#{File.basename(__FILE__)}"
@@ -26,13 +26,13 @@ class SmarterDatesTest < Test::Unit::TestCase
     last_week = now - 60 * 60 * 24 * 7
     yesterday = now - 60 * 60 * 24
 
-    @model.name = "Paul Belt"
-    @model.birth_d = "22 April 1976"
-    @model.meeting_dt = "today"
-    @model.created_on = "one week ago"
-    @model.updated_at = "yesterday"
+    @model.name = 'Paul Belt'
+    @model.birth_d = '22 April 1976'
+    @model.meeting_dt = 'today'
+    @model.created_on = 'one week ago'
+    @model.updated_at = 'yesterday'
 
-    assert_equal "Paul Belt", @model.name
+    assert_equal 'Paul Belt', @model.name
 
     assert_equal 1976, @model.birth_d.year
     assert_equal 4, @model.birth_d.mon
@@ -53,7 +53,7 @@ class SmarterDatesTest < Test::Unit::TestCase
   end
 
   def test_parsing_failures
-    @model.birth_d = "32 April 1976"
+    @model.birth_d = '32 April 1976'
     assert_equal nil, @model.birth_d
 
     @model.birth_d = nil
@@ -61,7 +61,7 @@ class SmarterDatesTest < Test::Unit::TestCase
 
     # TODO: fix this in chronic
     if false
-    @model.birth_d = "30 Feb 1976"
+    @model.birth_d = '30 Feb 1976'
     assert_equal nil, @model.birth_d
     end
   end
