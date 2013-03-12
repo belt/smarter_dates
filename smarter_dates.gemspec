@@ -26,6 +26,8 @@ Gem::Specification.new do |spec|
       spec.add_runtime_dependency 'chronic', ['>= 0']
       spec.add_development_dependency 'bundler', ['~> 1.3']
       spec.add_development_dependency 'rake', ['>= 0']
+      spec.add_development_dependency 'rails', ['>= 3.0']
+      spec.add_development_dependency 'sqlite3', ['~> 1.3.5']
     else
       spec.add_dependency('chronic')
     end
