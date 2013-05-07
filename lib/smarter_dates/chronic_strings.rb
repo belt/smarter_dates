@@ -8,12 +8,10 @@ class String
   # raise an error if the string fails to parse
 
   def to_datetime
+    dt = nil
+
     begin
-      if defined?(Chronic)
-        dt = parse_with_chronic
-      else
-        dt = parse_with_builtins
-      end
+      dt = defined?(Chronic) ? parse_with_chronic : parse_with_builtins
     end
 
     raise RuntimeError, "#{dt.inspect} unparsable Date/DateTime" unless dt
