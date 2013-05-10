@@ -48,6 +48,7 @@ module SmarterDates
   def self.dt_attributes(klass)
     @dt_attributes ||= []
     if defined?(Rails)
+      return @dt_attributes unless connected? && migrated?
       @dt_attributes.concat(rails_dt_attributes(klass))
     else
       @dt_attributes.concat(klass.instance_methods.select { |meth| meth.match(/_(?:at|on|dt|d)$/) })
