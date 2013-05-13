@@ -22,9 +22,7 @@ class ChronicParsableValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value = "") #:nodoc:
     @value = value
-    unless is_valid?
-      record.errors[attribute] << 'not a valid Date or DateTime'
-    end
+    record.errors[attribute] << 'not a valid Date or DateTime' unless is_valid?
   end
 
   # :call-seq:
@@ -42,9 +40,7 @@ class ChronicParsableValidator < ActiveModel::EachValidator
   # returns true if the string is parsable by chronic
 
   def is_valid_datetime?
-    obj = Chronic.parse(@value.respond_to?(:to_date) ?
-      @value.to_date : @value.to_s)
-    !obj.nil?
+    Chronic.parse(@value.respond_to?(:to_date) ? @value.to_date : @value.to_s)
   end
 
 end
