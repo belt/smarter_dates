@@ -3,7 +3,6 @@ require 'spec_helper'
 module SmarterDates
   class Activity < ActiveRecord::Base
     include SmarterDates
-
     validates :birth_d, presence: true
     validates :meeting_dt, presence: true
     validates :created_on, presence: true
@@ -59,12 +58,13 @@ describe SmarterDates::Activity do
       subject.each do |text|
         obj = SmarterDates::Activity.new
 
-        [:birth_d, :meeting_dt, :created_on, :updated_at].each do |prop|
+        props = [:end_on, :birth_d, :meeting_dt, :created_on, :updated_at]
+        props.each do |prop|
           obj.send("#{prop}=".to_sym, text)
           obj.send(prop).should be_nil
         end
         obj.should_not be_valid
-        obj.errors.count.should be(4)
+        obj.errors.count.should be(props.count)
       end
     end
   end
