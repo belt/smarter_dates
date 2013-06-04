@@ -46,7 +46,6 @@ describe SmarterDates::Activity do
         obj.meeting_dt = text
         obj.created_on = text
         obj.updated_at = text
-        debugger unless obj.valid?
         obj.should be_valid
       end
     end
