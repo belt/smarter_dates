@@ -46,6 +46,7 @@ describe SmarterDates::Activity do
         obj.meeting_dt = text
         obj.created_on = text
         obj.updated_at = text
+        debugger unless obj.valid?
         obj.should be_valid
       end
     end
@@ -58,7 +59,7 @@ describe SmarterDates::Activity do
       subject.each do |text|
         obj = SmarterDates::Activity.new
 
-        props = [:end_on, :birth_d, :meeting_dt, :created_on, :updated_at]
+        props = [:birth_d, :meeting_dt, :created_on, :updated_at]
         props.each do |prop|
           obj.send("#{prop}=".to_sym, text)
           obj.send(prop).should be_nil
