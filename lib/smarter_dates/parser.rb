@@ -18,7 +18,7 @@ module SmarterDates
 
   def self.convert_to_dt(convert_me)
     Proc.new do |val|
-      dt = val && val.to_chronic_datetime
+      dt = val.respond_to?(:to_chronic_datetime) ? val.to_chronic_datetime : val
       if defined?(Rails)
         set_rails_dt_attributes!(convert_me, dt)
       else
