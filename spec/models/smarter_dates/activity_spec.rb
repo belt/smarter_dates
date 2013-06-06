@@ -30,8 +30,8 @@ describe SmarterDates::Activity do
 
     it 'should many variations of common-language inputs' do
       subject.each do |text|
-        text.to_date
-        text.to_datetime
+        text.to_chronic_date
+        text.to_chronic_datetime
       end
     end
   end
