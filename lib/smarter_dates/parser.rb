@@ -3,14 +3,15 @@ require 'chronic'
 
 module SmarterDates
   def self.included(klass) # :nodoc:
-    dt_attributes(klass).each do |meth|
-      parse = convert_to_dt(meth)
-      klass.send(:define_method, "#{meth}=".to_sym, &parse)
+    bootstrap_smarter_dates(klass)
+
+    @dt_attributes.each do |meth|
+      klass.send(:define_method, "#{meth}=".to_sym, convert_to_dt(meth))
     end
   end
 
   # :call-seq:
-  # Module.convert_to_dt object
+  # Module.convert_to_dt method
   #
   # attempts to convert using Chronic, DateTime and-or Date, whichever works first
   # else simply yield the value
@@ -46,14 +47,7 @@ module SmarterDates
   # <tt>string</tt>:: A string
 
   def self.dt_attributes(klass)
-    @dt_attributes ||= []
-    if defined?(Rails)
-      return @dt_attributes unless connected? && migrated?
-      @dt_attributes.concat(rails_dt_attributes(klass))
-    else
-      @dt_attributes.concat(klass.instance_methods.select { |meth| meth.match(/_(?:at|on|dt|d)$/) })
-    end
-    @dt_attributes.uniq || []
+    klass.instance_methods.select { |meth| meth.match(/_(?:at|on|dt|d)$/) }
   end
 
   def self.connected? # :nodoc:
@@ -75,9 +69,13 @@ module SmarterDates
   # <tt>string</tt>:: A string
 
   def self.rails_dt_attributes(klass)
+    dt_attrs = nil
     logger = Rails.logger
-    dt_attrs = klass.column_names.select { |meth| meth.match(/_(?:at|on|dt|d)$/) }
-    logger.debug(RuntimeError, "unused include - #{klass.class.to_s} does not have any attributes ending in _at, _on, _dt, or _d") if migrated? && dt_attrs.empty?
+    begin
+      dt_attrs = klass.column_names.select { |meth| meth.match(/_(?:at|on|dt|d)$/) }
+      logger.debug(RuntimeError, "unused include - #{self.class.to_s} does not have any attributes ending in _at, _on, _dt, or _d") if migrated? && dt_attrs.empty?
+    rescue ActiveRecord::StatementInvalid => _
+    end
     dt_attrs.uniq || []
   end
 
@@ -91,13 +89,32 @@ module SmarterDates
   # <tt>value</tt>:: a value
 
   def set_rails_dt_attributes!(meth,dt)
-    if meth.match(/_(?:on|d)$/)
-      self[meth] = dt.try(:to_date)
-    elsif dt
-      self[meth] = dt.try(:to_datetime)
+    if dt && meth.match(/_(?:on|d)$/)
+      write_attribute meth, dt.to_date
+    elsif dt && meth.match(/_(?:at|dt)$/)
+      write_attribute meth, dt.to_datetime
     else
-      self[meth] = dt
+      write_attribute meth, dt
     end
   end
+
+  # :call-seq:
+  # Module.bootstrap_smarter_dates class
+  #
+  # Any attribute ending in _at, _on, _dt, or _d are parsed by Chronic.parse
+  # (for flexibility).  Values are passed as is to Chronic.parse()
+  #
+  # == Arguments
+  # <tt>class</tt>:: A class to have chronically-parsed dates
+
+  def self.bootstrap_smarter_dates(klass)
+    @dt_attributes = []
+    if defined?(Rails)
+      @dt_attributes.concat(rails_dt_attributes(klass))
+    else
+      @dt_attributes.concat(dt_attributes(klass))
+    end
+  end
+
 end
 
