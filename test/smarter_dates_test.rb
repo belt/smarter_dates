@@ -1,7 +1,9 @@
 require 'test/unit'
+require 'test_helper'
 
 if $LOAD_PATH.include?(File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib')))
   require 'smarter_dates'
+  require 'test_helper'
 else
   raise RuntimeError, "Try ruby -Ilib test/#{File.basename(__FILE__)}"
 end
