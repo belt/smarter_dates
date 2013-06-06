@@ -8,19 +8,19 @@ else
   raise RuntimeError, "Try ruby -Ilib test/#{File.basename(__FILE__)}"
 end
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
 
-ActiveRecord::Schema.define(:version => 1) do
+ActiveRecord::Schema.define(version: 1) do
   create_table :models do |t|
     t.string :name
-    t.datetime :created_on
+    t.date :created_on
   end
 end
 
 class Model < ActiveRecord::Base
   include SmarterDates
   attr_accessible :name, :created_on
-  validates :created_on, :chronic_parsable => true
+  validates :created_on, chronic_parsable: true
 end
 
 class ChronicParsableValidatorTest < Test::Unit::TestCase
@@ -34,10 +34,8 @@ class ChronicParsableValidatorTest < Test::Unit::TestCase
     valid_dates.each do |date|
       @model.created_on = date
       assert @model.valid?
-      @model.save
-      assert @model.persisted?
     end
-    invalid_dates = ['safdsafds', '55 April 1976', '$%$@#$@', '', nil]
+    invalid_dates = ['safdsafds', '55 April 1976', '$%$@#$@', "", nil]
     invalid_dates.each do |date|
       @model.created_on = date
       assert !@model.valid?
