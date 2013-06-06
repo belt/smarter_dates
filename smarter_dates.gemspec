@@ -9,7 +9,7 @@ REQUIREMENTS = {
     bundler: ['~> 1.3'],
     rake: ['>= 0'],
     sqlite3: ['>= 1.3.7'],
-    debugger: ['>= 1.5.0'],
+    debugger: ['>= 1.6.0'],
     rspec: ['>= 2.13.0'],
     mocha: ['>= 0.13.0'],
     database_cleaner: ['>= 0.9.1'],

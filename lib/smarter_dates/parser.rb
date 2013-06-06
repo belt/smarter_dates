@@ -18,15 +18,7 @@ module SmarterDates
 
   def self.convert_to_dt(convert_me)
     Proc.new do |val|
-      begin
-        dt = Chronic.parse(val.to_s)
-      rescue
-        dt = DateTime.parse(val.to_s)
-      rescue
-        dt = Date.parse(val)
-      rescue
-        dt = val
-      end
+      dt = val && val.to_chronic_datetime
       if defined?(Rails)
         set_rails_dt_attributes!(convert_me, dt)
       else
@@ -69,14 +61,14 @@ module SmarterDates
   # <tt>string</tt>:: A string
 
   def self.rails_dt_attributes(klass)
-    dt_attrs = nil
+    dt_attrs = []
     logger = Rails.logger
     begin
       dt_attrs = klass.column_names.select { |meth| meth.match(/_(?:at|on|dt|d)$/) }
       logger.debug(RuntimeError, "unused include - #{self.class.to_s} does not have any attributes ending in _at, _on, _dt, or _d") if migrated? && dt_attrs.empty?
     rescue ActiveRecord::StatementInvalid => _
     end
-    dt_attrs.uniq || []
+    dt_attrs.uniq
   end
 
   # :call-seq:

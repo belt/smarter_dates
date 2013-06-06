@@ -42,7 +42,7 @@ class String
   # attempt to parse a string with Chronic
 
   def parse_with_chronic
-    Chronic.time_class = Time.zone
+    #Chronic.time_class = Time.zone
     Chronic.parse(self)
   end
 
