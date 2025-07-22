@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.name        = 'smarter_dates'
   spec.version     = SmarterDates::VERSION
   spec.authors     = ['Paul Belt']
-  spec.email       = %w(paul.belt@gmail.com)
+  spec.email       = %w(paul.belt+github@gmail.com)
   spec.license     = 'MIT'
   spec.homepage    = 'http://github.com/belt/smarter_dates'
   spec.summary     = %q{Natural language date processing}
