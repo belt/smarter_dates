@@ -1,43 +1,42 @@
-require 'rake'
-require 'rake/testtask'
-require 'rake/rdoctask'
+# frozen_string_literal: true
 
-desc 'Default: run unit tests.'
-task :default => :test
+require "bundler/gem_tasks"
 
-desc 'Test the smarter_dates gem.'
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
-end
+begin
+  require "rspec/core/rake_task"
+  RSpec::Core::RakeTask.new(:spec) do |t|
+    t.rspec_opts = "--tag ~fuzz"
+  end
 
-desc 'Generate documentation for the smarter_dates gem.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'SmarterDates'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README.rdoc')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+  RSpec::Core::RakeTask.new(:fuzz) do |t|
+    t.rspec_opts = "--tag fuzz"
+  end
+rescue LoadError
+  # rspec not available
 end
 
 begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gemspec|
-    gemspec.name = 'smarter_dates'
-    gemspec.summary = 'machina to automatically parse date/datetime attributes upon assignment.'
-    gemspec.description = "Humans want to think of date and datetime attributes in a natural manner.\nStandard ruby Date and DateTime objects do not support this well."
-    gemspec.email = 'Paul Belt'
-    gemspec.authors = ['Paul Belt']
-    gemspec.homepage = 'http://github.com/belt/smarter_dates'
-    gemspec.extra_rdoc_files = ['README.rdoc']
-    gemspec.rdoc_options = ['--charset=UTF-8']
-    gemspec.add_dependency('chronic', '~> 0.2.3')
-    gemspec.rubyforge_project = 'smarter_dates'
-  end
-  Jeweler::GemcutterTasks.new
+  require "standard/rake"
 rescue LoadError
-  puts "Jeweler not available. Install it with: gem install jeweler"
+  # standard not available
 end
 
+desc "Run reek code smell detection"
+task :reek do
+  sh "bundle exec reek lib/"
+end
+
+desc "Run rubycritic quality report"
+task :quality do
+  sh "bundle exec rubycritic --no-browser lib/"
+end
+
+desc "Run bundler-audit security check"
+task :audit do
+  sh "bundle exec bundler-audit check --update"
+end
+
+desc "Run all checks (spec + lint + reek + audit)"
+task ci: %i[spec standard reek audit]
+
+task default: :spec

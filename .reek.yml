@@ -1,0 +1,53 @@
+---
+# Reek configuration — code smell detection
+
+exclude_paths:
+  - spec
+
+detectors:
+  TooManyStatements:
+    max_statements: 15
+
+  # Module-level Parser dispatches by type — concise but exceeds Reek's default branching threshold
+  ManualDispatch:
+    exclude:
+      - "SmarterDates::Parser"
+
+  # Module functions are the intended API
+  UtilityFunction:
+    exclude:
+      - "SmarterDates::Parser"
+      - "SmarterDates::PlainIntegration"
+      - "SmarterDates::ChronicDateType"
+      - "SmarterDates::ChronicDateTimeType"
+
+  # message: param is part of the API contract for ParseError
+  ControlParameter:
+    exclude:
+      - "SmarterDates::ParseError"
+
+  # value.to_datetime is called once on Date and once on Time arms — different paths
+  DuplicateMethodCall:
+    exclude:
+      - "SmarterDates::Parser"
+
+  # ChronicDateTimeType is a paired sibling to ChronicDateType; both share docstring on the file header
+  IrresponsibleModule:
+    exclude:
+      - "SmarterDates::ChronicDateTimeType"
+
+  # nil is a valid input per the API contract
+  NilCheck:
+    exclude:
+      - "SmarterDates::Parser"
+      - "SmarterDates::ChronicParsableValidator"
+      - "ChronicParsableValidator"
+
+  # ActiveSupport::Concern installs methods via define_method
+  FeatureEnvy:
+    exclude:
+      - "SmarterDates::ActiveRecordIntegration"
+      - "SmarterDates::PlainIntegration"
+
+  UnusedPrivateMethod:
+    enabled: false

@@ -1,0 +1,32 @@
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  date:
+    formats:
+      default:              "%d %b %Y"
+      filesystem:           "%Y%m%d"
+      humanized_date:       "%d %b %Y"
+      mon_year:             "%b %Y"
+      humanized_date:       "%d %b %Y"
+      humanized_datetime12: "%d %b %Y"
+      humanized_datetime24: "%d %b %Y"
+
+  time:
+    formats:
+      default:              "%a %d %b %Y %H:%M:%S %z"
+      filesystem:           "%Y%m%d%H%M%S"
+      long:                 "%d %b %Y %H:%M"
+      mon_year:             "%b %Y"
+      humanized_date:       "%d %b %Y"
+      humanized_datetime12: "%d %b %Y %I:%M:%S%p"
+      humanized_datetime24: "%d %b %Y %H:%M:%S"
+
+  datetime:
+    formats:
+      default:              "%d %b %Y %H:%M:%S"
+      filesystem:           "%d%m%Y%H%M%S"
+      mon_year:             "%b %Y"
+      humanized_date:       "%d %b %Y"
+      humanized_datetime12: "%d %b %Y %I:%M:%S%p"
+      humanized_datetime24: "%d %b %Y %H:%M:%S"
+
