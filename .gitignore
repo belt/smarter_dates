@@ -1,2 +1,21 @@
-pkg
-.rvmrc
+# Gem build artifacts
+*.gem
+pkg/
+
+# Coverage
+coverage/
+
+# RubyCritic reports
+tmp/rubycritic/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Ruby
+.bundle/
+tmp/
+rdoc/
