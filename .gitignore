@@ -19,3 +19,7 @@ tmp/rubycritic/
 .bundle/
 tmp/
 rdoc/
+
+# Per-cell matrix lockfiles (root Gemfile.lock IS tracked)
+gemfiles/*.lock
+gemfiles/.bundle/

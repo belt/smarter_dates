@@ -1,0 +1,20 @@
+# frozen_string_literal: true
+
+# Matrix Gemfile: ActiveRecord 7.2.x
+#
+# Standalone — declares the test gems plus AR family pins.
+# Selected by CI via BUNDLE_GEMFILE. Lockfile is gitignored;
+# each run resolves fresh.
+
+source "https://rubygems.org"
+
+gemspec path: ".."
+
+gem "activerecord", "~> 7.2.0"
+gem "activemodel", "~> 7.2.0"
+gem "activesupport", "~> 7.2.0"
+
+gem "rspec", "~> 3.13"
+gem "sqlite3", "~> 2.9"
+gem "rantly", "~> 3.0"
+gem "simplecov", "~> 0.22", require: false

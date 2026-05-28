@@ -4,14 +4,9 @@ source "https://rubygems.org"
 
 gemspec
 
-# CI matrix: AR_VERSION=7.2 or AR_VERSION=8.1 (default: latest)
-ar_version = ENV.fetch("AR_VERSION", nil)
-ar_constraint = ar_version ? "~> #{ar_version}.0" : ">= 7.2"
-
-if ar_version
-  gem "activemodel", ar_constraint
-  gem "activesupport", ar_constraint
-end
+# Default Gemfile — local dev uses ActiveRecord >= 7.2 (latest available).
+# CI matrix lives in gemfiles/activerecord_*.gemfile (each is standalone,
+# selected via BUNDLE_GEMFILE).
 
 group :development do
   # Modern debugger (Ruby 3.1+, replaces pry/byebug)
@@ -30,7 +25,7 @@ end
 group :development, :test do
   # Testing
   gem "rspec", "~> 3.13"
-  gem "activerecord", ar_constraint, require: false
+  gem "activerecord", ">= 7.2", require: false
   gem "sqlite3", "~> 2.9"
 
   # Property-based / fuzz testing

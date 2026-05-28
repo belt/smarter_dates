@@ -4,7 +4,8 @@
 # Concurrency: cancel stale runs on same branch/PR.
 #
 # Matrix: Ruby 3.4 + 4.0 × ActiveRecord 7.2 + 8.1
-# AR_VERSION env var pins activerecord/activemodel/activesupport in Gemfile.
+# Each cell selects gemfiles/activerecord_<ver>.gemfile via BUNDLE_GEMFILE.
+# Cell lockfiles are gitignored; each run resolves fresh.
 ---
 name: CI
 
@@ -19,6 +20,8 @@ on:
       - "spec/**"
       - "config/**"
       - "Gemfile"
+      - "Gemfile.lock"
+      - "gemfiles/**"
       - "smarter_dates.gemspec"
       - ".github/workflows/ci.yml"
   pull_request:
@@ -28,6 +31,8 @@ on:
       - "spec/**"
       - "config/**"
       - "Gemfile"
+      - "Gemfile.lock"
+      - "gemfiles/**"
       - "smarter_dates.gemspec"
       - ".github/workflows/ci.yml"
 
@@ -49,18 +54,21 @@ jobs:
       - run: bundle exec reek lib/
 
   test:
+    name: test (ruby ${{ matrix.ruby }}, ${{ matrix.gemfile }})
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["3.4", "4.0"]
-        ar: ["7.2", "8.1"]
-        exclude:
+        include:
+          - ruby: "3.4"
+            gemfile: gemfiles/activerecord_7.2.gemfile
+          - ruby: "3.4"
+            gemfile: gemfiles/activerecord_8.1.gemfile
           - ruby: "4.0"
-            ar: "7.2"
+            gemfile: gemfiles/activerecord_8.1.gemfile
     env:
-      AR_VERSION: ${{ matrix.ar }}
+      BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: ruby/setup-ruby@c4e5b1316158f92e3d49443a9d58b31d25ac0f8f # v1.306.0
