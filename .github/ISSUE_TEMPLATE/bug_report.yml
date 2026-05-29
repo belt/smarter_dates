@@ -1,0 +1,126 @@
+name: Bug Report
+description: Report a bug in smarter_dates
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug. Please fill out the
+        sections below so we can reproduce and fix the issue.
+
+  - type: input
+    id: gem-version
+    attributes:
+      label: smarter_dates Version
+      description: Output of `bundle info smarter_dates` or `SmarterDates::VERSION`
+      placeholder: "smarter_dates 1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: ruby-version
+    attributes:
+      label: Ruby Version
+      description: Output of `ruby --version`
+      placeholder: "ruby 3.4.8"
+    validations:
+      required: true
+
+  - type: input
+    id: activerecord-version
+    attributes:
+      label: ActiveRecord / ActiveModel Version
+      description: |
+        Output of `bundle info activerecord` (or `activemodel`
+        if AR is not installed). Write "n/a" if not using
+        either.
+      placeholder: "activerecord 8.1.3"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      options:
+        - macOS
+        - Linux (glibc)
+        - Linux (musl)
+        - Windows
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: integration
+    attributes:
+      label: Integration Path
+      description: How is smarter_dates being used in the failing code?
+      options:
+        - ActiveRecord model (include SmarterDates)
+        - Plain Ruby object (PlainIntegration)
+        - String refinements (core_ext)
+        - ChronicParsableValidator
+        - ChronicDateType / ChronicDateTimeType
+        - Parser directly (SmarterDates::Parser)
+        - Other / unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened? What did you expect instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: |
+        Minimal Ruby snippet that triggers the bug. A failing
+        spec is ideal. Include the input string, the column
+        suffix (_d / _on / _dt / _at), and the expected vs
+        actual value.
+      placeholder: |
+        class Activity < ActiveRecord::Base
+          include SmarterDates
+        end
+
+        a = Activity.new(birth_d: "yesterday")
+        # Expected: Date object
+        # Got: nil
+      render: ruby
+    validations:
+      required: true
+
+  - type: textarea
+    id: input-sample
+    attributes:
+      label: Input Sample
+      description: |
+        If the bug involves a specific natural-language string
+        ("noon march 15", "next tuesday at 3pm"), paste it
+        here exactly as your code receives it. Mention the
+        locale and timezone if relevant.
+      render: text
+
+  - type: textarea
+    id: backtrace
+    attributes:
+      label: Backtrace
+      description: |
+        Full backtrace if an exception was raised. Trim long
+        gem-internal frames if needed.
+      render: shell
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: |
+        Anything else that might help: Rails version, Chronic
+        configuration (Chronic.time_class, ambiguous_time_range),
+        related issues, or workarounds you have tried.
