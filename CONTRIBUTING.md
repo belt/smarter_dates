@@ -19,8 +19,14 @@ Please read and follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 git clone https://github.com/belt/smarter_dates.git
 cd smarter_dates
 bundle install
+git config core.hooksPath .githooks
 bundle exec rspec
 ```
+
+The `core.hooksPath` step activates the version-controlled
+pre-push hook in `.githooks/`. It runs CI parity checks
+(standardrb, rspec, reek, bundler-audit) against pushes to
+`main` only. Bypass with `git push --no-verify`.
 
 ## Workflow
 
