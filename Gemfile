@@ -35,7 +35,7 @@ group :development, :test do
   gem "standard", "~> 1.54", require: false
 
   # Coverage
-  gem "simplecov", "~> 0.22", require: false
+  gem "simplecov", "~> 1.0", require: false
 
   # Security audit
   gem "bundler-audit", "~> 0.9", require: false
