@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 gemspec
 
-# Default Gemfile — local dev uses ActiveRecord >= 7.2 (latest available).
+# Default Gemfile — local dev uses ActiveRecord >= 8.1 (latest available).
 # CI matrix lives in gemfiles/activerecord_*.gemfile (each is standalone,
 # selected via BUNDLE_GEMFILE).
 
@@ -25,7 +25,7 @@ end
 group :development, :test do
   # Testing
   gem "rspec", "~> 3.13"
-  gem "activerecord", ">= 7.2", require: false
+  gem "activerecord", ">= 8.1", require: false
   gem "sqlite3", "~> 2.9"
 
   # Property-based / fuzz testing

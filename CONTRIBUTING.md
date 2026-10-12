@@ -10,7 +10,7 @@ Please read and follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ### Prerequisites
 
-- Ruby 3.2.0 or higher (3.4.9 recommended; pinned in `.mise.toml`)
+- Ruby 3.4.0 or higher (3.4.9 recommended; pinned in `.mise.toml`)
 - Bundler 2.x
 
 ### Setup
