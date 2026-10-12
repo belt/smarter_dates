@@ -114,11 +114,11 @@ work as drop-in runtime dependencies.
 
 ## Requirements
 
-- Ruby >= 3.2.0
-- ActiveModel >= 7.2 (for the validator and custom types)
-- ActiveRecord >= 7.2 (for the AR integration)
+- Ruby >= 3.4.0
+- ActiveModel >= 8.1 (for the validator and custom types)
+- ActiveRecord >= 8.1 (for the AR integration)
 
-Tested matrix: Ruby 3.4 + 4.0 × ActiveRecord 7.2 + 8.1.
+Tested matrix: Ruby 3.4 + 4.0 × ActiveRecord 8.1.
 
 ## Migration from 0.x
 
@@ -131,7 +131,7 @@ Version 1.0 is a clean rewrite. Breaking changes:
 - The `Configuration.for("smarter_dates")` install generator and
   initializer template were removed (the option was never wired to
   anything).
-- Minimum Ruby is 3.2; minimum ActiveRecord is 7.2.
+- Minimum Ruby is 3.4; minimum ActiveRecord is 8.1.
 
 ## License
 

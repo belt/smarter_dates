@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   DESC
   spec.homepage = "https://github.com/belt/smarter_dates"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 3.2.0"
+  spec.required_ruby_version = ">= 3.4.0"
   spec.required_rubygems_version = ">= 3.4"
 
   spec.metadata = {
@@ -42,6 +42,6 @@ Gem::Specification.new do |spec|
   # `gitlab-chronic` is API-compatible with the original and tracks
   # current Ruby releases. ActiveModel pulls in the bits the validator
   # and types need without forcing the whole AR stack.
-  spec.add_dependency "activemodel", ">= 7.2"
+  spec.add_dependency "activemodel", ">= 8.1"
   spec.add_dependency "gitlab-chronic", ">= 0.10"
 end

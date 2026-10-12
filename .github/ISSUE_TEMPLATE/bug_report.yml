@@ -22,7 +22,7 @@ body:
     attributes:
       label: Ruby Version
       description: Output of `ruby --version`
-      placeholder: "ruby 3.4.8"
+      placeholder: "ruby 3.4.9"
     validations:
       required: true
 

@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     smarter_dates (1.0.0)
-      activemodel (>= 7.2)
+      activemodel (>= 8.1)
       gitlab-chronic (>= 0.10)
 
 GEM
@@ -259,7 +259,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  activerecord (>= 7.2)
+  activerecord (>= 8.1)
   bundler-audit (~> 0.9)
   debug (>= 1.11)
   rake (~> 13.2)

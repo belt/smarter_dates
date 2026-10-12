@@ -3,7 +3,7 @@
 # Actions pinned to full SHA for supply-chain safety.
 # Concurrency: cancel stale runs on same branch/PR.
 #
-# Matrix: Ruby 3.4 + 4.0 × ActiveRecord 7.2 + 8.1
+# Matrix: Ruby 3.4 + 4.0 × ActiveRecord 8.1
 # Each cell selects gemfiles/activerecord_<ver>.gemfile via BUNDLE_GEMFILE.
 # Cell lockfiles are gitignored; each run resolves fresh.
 ---
@@ -45,8 +45,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: ruby/setup-ruby@c4e5b1316158f92e3d49443a9d58b31d25ac0f8f # v1.306.0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1.315.0
         with:
           ruby-version: "3.4"
           bundler-cache: true
@@ -62,16 +62,14 @@ jobs:
       matrix:
         include:
           - ruby: "3.4"
-            gemfile: gemfiles/activerecord_7.2.gemfile
-          - ruby: "3.4"
             gemfile: gemfiles/activerecord_8.1.gemfile
           - ruby: "4.0"
             gemfile: gemfiles/activerecord_8.1.gemfile
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/${{ matrix.gemfile }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: ruby/setup-ruby@c4e5b1316158f92e3d49443a9d58b31d25ac0f8f # v1.306.0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1.315.0
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
@@ -81,8 +79,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: ruby/setup-ruby@c4e5b1316158f92e3d49443a9d58b31d25ac0f8f # v1.306.0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601 # v1.315.0
         with:
           ruby-version: "3.4"
           bundler-cache: true
