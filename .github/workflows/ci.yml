@@ -15,26 +15,8 @@ permissions:
 on:
   push:
     branches: [main, master]
-    paths:
-      - "lib/**"
-      - "spec/**"
-      - "config/**"
-      - "Gemfile"
-      - "Gemfile.lock"
-      - "gemfiles/**"
-      - "smarter_dates.gemspec"
-      - ".github/workflows/ci.yml"
   pull_request:
     branches: [main, master]
-    paths:
-      - "lib/**"
-      - "spec/**"
-      - "config/**"
-      - "Gemfile"
-      - "Gemfile.lock"
-      - "gemfiles/**"
-      - "smarter_dates.gemspec"
-      - ".github/workflows/ci.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
