@@ -26,7 +26,7 @@ group :development, :test do
   # Testing
   gem "rspec", "~> 3.13"
   gem "activerecord", ">= 8.1", require: false
-  gem "sqlite3", "~> 2.9"
+  gem "sqlite3", "~> 2.10"
 
   # Property-based / fuzz testing
   gem "rantly", "~> 3.0"
